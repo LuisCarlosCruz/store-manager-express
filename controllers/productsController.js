@@ -10,7 +10,7 @@ const createProduts = async (req, res, _next) => {
     return res.status(StatusCodes.BAD_REQUEST).json(err.message);
   }
 };
-// ==========================================================================
+
 const getAllProduts = async (_req, res, _next) => {
   try {
     const produts = await productsService.getAllProduts();
@@ -26,8 +26,8 @@ const getProductById = async (req, res, _next) => {
     const produt = await productsService.getProductById(id);
     if (produt === null) {
       return res
-        .status(StatusCodes.NOT_FOUND)
-        .json({ message: 'Product not found' }); 
+      .status(StatusCodes.NOT_FOUND)
+      .json({ message: 'Product not found' }); 
     }
     return res.status(StatusCodes.OK).json(produt[0]);
   } catch (err) {
@@ -35,4 +35,21 @@ const getProductById = async (req, res, _next) => {
   }
 };
 
-module.exports = { createProduts, getAllProduts, getProductById };
+// ==========================================================================
+const updateProductById = async (req, res, _next) => {
+  try {
+    const { id } = req.params;
+    const { name, quantity } = req.body;
+    const newProd = await productsService.updateProductById(id, name, quantity);
+    if (newProd === null) {
+      return res
+      .status(StatusCodes.NOT_FOUND)
+      .json({ message: 'Product not found' }); 
+    }
+    return res.status(StatusCodes.OK).json(newProd[0]);
+  } catch (err) {
+    return res.status(StatusCodes.NOT_FOUND).json(err.message);
+  }
+};
+
+module.exports = { createProduts, getAllProduts, getProductById, updateProductById };

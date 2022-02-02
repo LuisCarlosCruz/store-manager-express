@@ -11,6 +11,12 @@ const validateMiddleware = require('./middlewares/validateMiddleware');
 const { error } = require('./middlewares/errorMiddleware');
 const productsController = require('./controllers/productsController');
 
+// R3
+app.put('/products/:id',
+validateMiddleware.validateNameUpdate,
+validateMiddleware.validateQuantity,
+productsController.updateProductById);
+
 // R2
 app.get('/products/:id', productsController.getProductById);
 app.get('/products', productsController.getAllProduts);
