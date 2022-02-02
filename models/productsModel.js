@@ -10,9 +10,24 @@ const createProduts = async (name, quantity) => {
   };
 };
 
-const getProduct = async (name) => {
+const getProductByName = async (name) => {
   const [prod] = await connection.execute('SELECT * FROM products WHERE name = ?', [name]);
   return prod;
 };
 
-module.exports = { createProduts, getProduct };
+const getAllProduts = async () => {
+  const [products] = await connection.execute('SELECT * FROM products');
+  return products;
+};
+
+const getProductById = async (id) => {
+  const [product] = await connection.execute('SELECT * FROM products WHERE id = ?', [id]);
+  return product;
+};
+
+module.exports = { 
+  createProduts,
+  getProductByName,
+  getAllProduts,
+  getProductById,
+};

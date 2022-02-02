@@ -10,7 +10,7 @@ const validateName = async (req, res, next) => {
     return res.status(StatusCodes.UNPROCESSABLE_ENTITY)
       .json({ message: '"name" length must be at least 5 characters long' }); 
   }
-  const prodExicts = await productsModel.getProduct(name);
+  const prodExicts = await productsModel.getProductByName(name);
   if (prodExicts.length > 0) {
     return res.status(StatusCodes.CONFLICT).json({ message: 'Product already exists' });
   }
