@@ -34,8 +34,6 @@ const getProductById = async (req, res, _next) => {
     return res.status(StatusCodes.NOT_FOUND).json(err.message);
   }
 };
-
-// ==========================================================================
 const updateProductById = async (req, res, _next) => {
   try {
     const { id } = req.params;
@@ -52,4 +50,28 @@ const updateProductById = async (req, res, _next) => {
   }
 };
 
-module.exports = { createProduts, getAllProduts, getProductById, updateProductById };
+// ==========================================================================
+
+const deleteById = async (req, res, _next) => {
+  try {
+    const { id } = req.params;
+
+    const delProd = await productsService.deleteById(id);
+
+    if (delProd === null) {
+      return res.status(StatusCodes.NOT_FOUND).json({ message: 'Product not found' });
+    }
+
+    return res.status(StatusCodes.OK).json(delProd);
+  } catch (err) {
+    return res.status(StatusCodes.NOT_FOUND).json(err.message);
+  }
+};
+
+module.exports = {
+  createProduts,
+  getAllProduts,
+  getProductById,
+  updateProductById,
+  deleteById,
+};

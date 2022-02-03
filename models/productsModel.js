@@ -35,6 +35,10 @@ WHERE id = ?`, [name, quantity, id],
   const newProd = await getProductById(id);
   return newProd;
 };
+// =================================================
+const deleteById = async (id) => {
+  await connection.execute('DELETE FROM products WHERE id = ?', [id]);
+};
 
 module.exports = { 
   createProduts,
@@ -42,4 +46,5 @@ module.exports = {
   getAllProduts,
   getProductById,
   updateProductById,
+  deleteById,
 };

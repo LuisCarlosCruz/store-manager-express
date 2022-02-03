@@ -1,0 +1,21 @@
+{
+  "files.exclude": {
+    "node_modules": true,
+    ".gitignore": true,
+    "package.json": true,
+    "package-lock.json": true,
+    ".eslintignore":true,
+    ".stylelintignore": true,
+    ".eslintrc.json": true,
+    ".stylelintrc.json": true,
+    ".github": true,
+    ".trybe": true,
+    "public": true,
+    ".editorconfig": true,
+    ".env": true,
+    "README.md": true,
+    "StoreManager.sql": true,
+    "trybe.yml": true,
+    // "test": true
+  }
+}

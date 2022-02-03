@@ -11,6 +11,14 @@ const validateMiddleware = require('./middlewares/validateMiddleware');
 const { error } = require('./middlewares/errorMiddleware');
 const productsController = require('./controllers/productsController');
 
+// ====================================
+
+// R4
+
+app.delete('/products/:id', productsController.deleteById);
+
+// ==============================
+
 // R3
 app.put('/products/:id',
 validateMiddleware.validateNameUpdate,
