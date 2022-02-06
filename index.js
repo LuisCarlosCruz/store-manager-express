@@ -10,14 +10,19 @@ const validateMiddleware = require('./middlewares/validateMiddleware');
 
 const { error } = require('./middlewares/errorMiddleware');
 const productsController = require('./controllers/productsController');
+const salesController = require('./controllers/salesController');
 
-// ====================================
+// app.get('/sales/:id', salesController.getSaleById);
+// app.get('/sales', salesController.getAllSales);
+
+// ===============OFF=====================
+app.post('/sales',
+validateMiddleware.validateSale,
+salesController.createSale);
+// ==============================
 
 // R4
-
 app.delete('/products/:id', productsController.deleteById);
-
-// ==============================
 
 // R3
 app.put('/products/:id',

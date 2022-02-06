@@ -41,4 +41,31 @@ const validateNameUpdate = async (req, res, next) => {
   next();
 };
 
-module.exports = { validateName, validateQuantity, validateNameUpdate };
+// ==============================
+
+const validateSale = async (req, res, next) => {
+  const [sale] = req.body;
+  const { product_id: productID, quantity } = sale;
+
+  if (productID === undefined) {
+    return res
+      .status(StatusCodes.BAD_REQUEST).json({ message: '"product_id" is required' }); 
+  }
+  if (quantity === undefined) {
+    return res
+      .status(StatusCodes.BAD_REQUEST).json({ message: '"quantity" is required' });
+  }
+  if (quantity < 1 || typeof quantity === 'string') {
+    return res
+      .status(StatusCodes.UNPROCESSABLE_ENTITY)
+      .json({ message: '"quantity" must be a number larger than or equal to 1' });
+  }
+  next();
+};
+
+module.exports = {
+  validateName,
+  validateQuantity,
+  validateNameUpdate,
+  validateSale,
+};
