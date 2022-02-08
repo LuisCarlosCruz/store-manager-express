@@ -2,9 +2,6 @@ const connection = require('./connection');
 const productsModel = require('./productsModel');
 
 const createSale = async (bodySale) => {
-  // const [body] = bodySale;
-  // const { product_id: productID } = body;
-
   const existProd = await Promise.all(bodySale.map(async (item) => {
     const [id] = await productsModel.getProductById(item.product_id);
     if (id === undefined) return null;
@@ -46,7 +43,6 @@ const getSaleById = async (id) => {
     return result;
 };
 
-// =======================================================
 const updateSaleById = async (id, body) => {
   const [saleExists] = await getSaleById(id);
 
@@ -67,9 +63,39 @@ const updateSaleById = async (id, body) => {
   }; 
 };
 
+// =================================================================
+
+const deleteSaleById = async (id) => {
+  const saleExists = await getSaleById(id);
+
+  console.log(saleExists);
+
+  if (saleExists.length === 0) return null;
+
+  await connection.execute(
+    'DELETE FROM sales_products WHERE sale_id = ?',
+    [id],
+  );
+
+  await connection.execute(
+    'DELETE FROM sales WHERE id = ?',
+    [id],
+  );
+
+  saleExists.map(async (item) => {
+    await connection.execute(
+      'UPDATE products SET quantity = quantity + ? WHERE id = ?',
+      [item.quantity, item.product_id],
+    );
+  });
+
+  return saleExists;
+};
+
   module.exports = {
     getAllSales,
     getSaleById,
     createSale,
     updateSaleById,
+    deleteSaleById,
   };

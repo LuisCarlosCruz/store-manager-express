@@ -5,6 +5,9 @@ const router = express.Router();
 const salesController = require('../controllers/salesController');
 const validateMiddleware = require('../middlewares/validateMiddleware');
 
+// R10
+router.delete('/:id', salesController.deleteSaleById);
+
 // R7
 router.put('/:id', validateMiddleware.validateSale, salesController.updateSaleById);
 
