@@ -6,40 +6,13 @@ app.use(express.json());
 
 require('dotenv').config();
 
-const validateMiddleware = require('./middlewares/validateMiddleware');
-
 const { error } = require('./middlewares/errorMiddleware');
-const productsController = require('./controllers/productsController');
-const salesController = require('./controllers/salesController');
 
-app.get('/sales/:id', salesController.getSaleById);
-app.get('/sales', salesController.getAllSales);
+const salesRouter = require('./routes/salesRouter');
+const productsRouter = require('./routes/productsRouter');
 
-// ===============OK========================
-
-// R5
-app.post('/sales',
-validateMiddleware.validateSale,
-salesController.createSale);
-
-// R4
-app.delete('/products/:id', productsController.deleteById);
-
-// R3
-app.put('/products/:id',
-validateMiddleware.validateNameUpdate,
-validateMiddleware.validateQuantity,
-productsController.updateProductById);
-
-// R2
-app.get('/products/:id', productsController.getProductById);
-app.get('/products', productsController.getAllProduts);
-
-// R1
-app.post('/products',
-validateMiddleware.validateName,
-validateMiddleware.validateQuantity,
-productsController.createProduts);
+app.use('/sales', salesRouter);
+app.use('/products', productsRouter);
 
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (_request, response) => {
