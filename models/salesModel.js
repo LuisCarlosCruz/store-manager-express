@@ -37,32 +37,34 @@ const getAllSales = async () => {
 };
 
 const getSaleById = async (id) => {
-  console.log(id);
   const [result] = await connection
     .query(`SELECT S.date, SP.product_id, SP.quantity FROM sales_products AS SP
     INNER JOIN StoreManager.sales AS S
     ON SP.sale_id = S.id
     WHERE S.id =?;`, [id]);
     if (!result) return null;
-    console.log(result);
     return result;
 };
 
 // =======================================================
-const updateSaleById = async () => {
-  // const [sale] = await Promise.all(async (product) => {
-  //   const { product_id: productID, quantity } = product;
+const updateSaleById = async (id, body) => {
+  const [saleExists] = await getSaleById(id);
 
-  //   connection.query(
-  //   `UPDATE sales_products
-  //   SET product_id = ?, quantity = ?
-  //   WHERE sale_id = ?`, [productID, quantity, id],
-  //   );
-  // });
+  if (saleExists === undefined) return null;
 
-  // console.log(sale, 'model');
+  await Promise.all(body.map(async (product) => {
+    const { product_id: productID, quantity } = product;
+    return connection.query(
+      `UPDATE sales_products
+      SET product_id = ?, quantity = ?
+      WHERE sale_id = ?`, [productID, quantity, id],
+    );
+  }));
 
-  // return { id: sale.insertId, itemUpdated: body };
+  return {
+    saleId: +id,
+    itemUpdated: body,
+  }; 
 };
 
   module.exports = {
