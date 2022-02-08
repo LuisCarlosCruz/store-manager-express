@@ -720,7 +720,7 @@ describe('Sales', () => {
   });
 
   describe('10 - Crie um endpoint para deletar uma venda', () => {
-    it('Será validado que é possível deletar uma venda com sucesso', async () => {
+    it.skip('Será validado que é possível deletar uma venda com sucesso', async () => {
       let result;
       let resultSales;
       let resultProductId;
@@ -770,7 +770,7 @@ describe('Sales', () => {
         });
     });
 
-    it('Será validado que não é possível deletar uma venda que não existe', async () => {
+    it.skip('Será validado que não é possível deletar uma venda que não existe', async () => {
       await frisby
         .delete(`${url}/sales/${INVALID_ID}`)
         .expect('status', 404)
@@ -785,7 +785,7 @@ describe('Sales', () => {
   });
 
   describe('11 - Atualize a quantidade de produtos', () => {
-    it.skip('Será validado que é possível atualizar a quantidade do produto ao fazer uma compra', async () => {
+    it('Será validado que é possível atualizar a quantidade do produto ao fazer uma compra', async () => {
       let result;
       let responseProductId;
 
@@ -818,7 +818,7 @@ describe('Sales', () => {
         });
     });
 
-    it.skip('Será validado que é possível atualizar a quantidade do produto ao deletar uma compra', async () => {
+    it('Será validado que é possível atualizar a quantidade do produto ao deletar uma compra', async () => {
       let result;
       let resultSales;
       let responseProductId;

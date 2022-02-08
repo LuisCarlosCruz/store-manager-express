@@ -20,12 +20,12 @@ const updateSaleById = async (id, body) => {
   return sale;
 };
 
-// =================================================================
-
 const deleteSaleById = async (id) => {
   const sale = await salesModel.deleteSaleById(id);
   return sale;
 };
+
+// =================================================================
 
 module.exports = {
   getAllSales,

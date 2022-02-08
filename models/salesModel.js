@@ -8,19 +8,21 @@ const createSale = async (bodySale) => {
     return id.id;
   }));
 
-  if (existProd.includes(null)) return null; 
+  if (existProd.includes(null)) return null;
+
+  const { product_id: productID, quantity } = bodySale[0];
+  await connection
+    .execute('UPDATE products SET quantity = quantity - ? WHERE id = ?', [quantity, productID]);
 
   const [sale] = await connection
   .query('INSERT INTO StoreManager.sales (date) VALUES (NOW());');
 
-  await Promise.all(
-  bodySale.map(async (product) => {
+  await Promise.all(bodySale.map(async (product) => {
     connection.query(
       'INSERT INTO sales_products (sale_id,product_id, quantity) VALUES (?,?,?);',
     [sale.insertId, product.product_id, product.quantity],
     );
-  }),
-  );
+  }));
   return { id: sale.insertId, itemsSold: bodySale };
 };
 
@@ -51,8 +53,7 @@ const updateSaleById = async (id, body) => {
   await Promise.all(body.map(async (product) => {
     const { product_id: productID, quantity } = product;
     return connection.query(
-      `UPDATE sales_products
-      SET product_id = ?, quantity = ?
+      `UPDATE sales_products SET product_id = ?, quantity = ?
       WHERE sale_id = ?`, [productID, quantity, id],
     );
   }));
@@ -63,34 +64,26 @@ const updateSaleById = async (id, body) => {
   }; 
 };
 
-// =================================================================
-
 const deleteSaleById = async (id) => {
   const saleExists = await getSaleById(id);
-
-  console.log(saleExists);
-
   if (saleExists.length === 0) return null;
 
-  await connection.execute(
-    'DELETE FROM sales_products WHERE sale_id = ?',
-    [id],
-  );
+  await connection.execute('DELETE FROM sales_products WHERE sale_id = ?', [id]);
 
-  await connection.execute(
-    'DELETE FROM sales WHERE id = ?',
-    [id],
-  );
+  await connection.execute('DELETE FROM sales WHERE id = ?', [id]);
 
   saleExists.map(async (item) => {
-    await connection.execute(
-      'UPDATE products SET quantity = quantity + ? WHERE id = ?',
-      [item.quantity, item.product_id],
-    );
+    await connection
+      .execute(
+        'UPDATE products SET quantity = quantity + ? WHERE id = ?',
+        [item.quantity, item.product_id],
+      );
   });
 
   return saleExists;
 };
+
+// =================================================================
 
   module.exports = {
     getAllSales,

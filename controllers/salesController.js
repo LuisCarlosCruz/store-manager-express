@@ -59,15 +59,11 @@ const updateSaleById = async (req, res, _next) => {
   return res.status(StatusCodes.OK).json(sale);
 };
 
-// ===============================================================
-
 const deleteSaleById = async (req, res, _next) => {
   try {
     const { id } = req.params;
   
     const sale = await salesService.deleteSaleById(id);
-  
-    console.log(sale, 'controller');
 
     if (sale === null) return res.status(StatusCodes.NOT_FOUND).json({ message: 'Sale not found' });
   
@@ -77,6 +73,8 @@ const deleteSaleById = async (req, res, _next) => {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Internal Server Error' });
   }
 };
+
+// ===============================================================
 
 module.exports = {
   getAllSales,
