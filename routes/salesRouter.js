@@ -6,7 +6,7 @@ const salesController = require('../controllers/salesController');
 const validateMiddleware = require('../middlewares/validateMiddleware');
 
 // R7
-router.put('/:id', validateMiddleware.validateSale, salesController.updateSaleById);
+// router.put('/:id', validateMiddleware.validateSale, salesController.updateSaleById);
 
 // R5
 router.post('/', validateMiddleware.validateSale, salesController.createSale);

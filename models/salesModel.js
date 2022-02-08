@@ -49,20 +49,20 @@ const getSaleById = async (id) => {
 };
 
 // =======================================================
-const updateSaleById = async (id, body) => {
-  const [sale] = await Promise.all(async (product) => {
-    const { product_id: productID, quantity } = product;
+const updateSaleById = async () => {
+  // const [sale] = await Promise.all(async (product) => {
+  //   const { product_id: productID, quantity } = product;
 
-    connection.query(
-    `UPDATE sales_products
-    SET product_id = ?, quantity = ?
-    WHERE sale_id = ?`, [productID, quantity, id],
-    );
-  });
+  //   connection.query(
+  //   `UPDATE sales_products
+  //   SET product_id = ?, quantity = ?
+  //   WHERE sale_id = ?`, [productID, quantity, id],
+  //   );
+  // });
 
-  console.log(sale, 'model');
+  // console.log(sale, 'model');
 
-  return { id: sale.insertId, itemUpdated: body };
+  // return { id: sale.insertId, itemUpdated: body };
 };
 
   module.exports = {
