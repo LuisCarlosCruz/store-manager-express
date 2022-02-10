@@ -81,19 +81,17 @@ describe('CAMADA DE SERVICES', () => {
 
     describe('getProductById:', () => {
 
-      // describe('quando não existir o produtos:', () => {
-      //   const id = 9999;
+      describe('quando não existir o produtos:', () => {
+        const id = 9999;
   
-      //   before(() => sinon.stub(productsModel, 'getProductById').returns([]));
-      //   after(() => productsModel.getProductById.restore());
+        before(() => sinon.stub(productsModel, 'getProductById').returns([]));
+        after(() => productsModel.getProductById.restore());
         
-      //   it('deve retornar um array vazio:', async ()=> {
-      //     const response = await productsService.getProductById(id);
-      //     // expect(response).to.be.an('array');
-      //     expect(response).to.be.equal([]);
-      //     // expect(response.length).to.be.equal(0);
-      //   });
-      // });
+        it('deve retornar um array vazio:', async ()=> {
+          const response = await productsService.getProductById(id);
+          expect(response).to.be.equal(null);
+        });
+      });
 
       describe('quando existir o produto:', () => {
         const id = 3;
@@ -128,18 +126,17 @@ describe('CAMADA DE SERVICES', () => {
 
     describe('updateProductById:', () => {
 
-      // describe('quando não existir o produtos:', () => {
-      //   const id = 9999;
+      describe('quando não existir o produtos:', () => {
+        const id = 9999;
   
-      //   before(() => sinon.stub(productsModel, 'updateProductById').returns([]));
-      //   after(() => productsModel.updateProductById.restore());
+        before(() => sinon.stub(productsModel, 'updateProductById').returns([]));
+        after(() => productsModel.updateProductById.restore());
         
-      //   it('deve retornar um array vazio:', async ()=> {
-      //     const response = await productsService.updateProductById(id);
-      //     expect(response).to.be.an('array');
-      //     expect(response).to.be.empty;
-      //   });
-      // });
+        it('deve retornar null:', async ()=> {
+          const response = await productsService.updateProductById(id);
+          expect(response).to.be.equal(null);
+        });
+      });
 
       describe('quando existir o produto:', () => {
         const param = { id: 3, name: 'celular', quantity: 5 };
@@ -173,18 +170,18 @@ describe('CAMADA DE SERVICES', () => {
 
     describe('deleteById:', () => {
 
-      // describe('quando não existir o produtos:', () => {
-      //   const id = 9999;
+      describe('quando não existir o produtos:', () => {
+        const id = 9999;
   
-      //   before(() => sinon.stub(productsModel, 'deleteById').returns(undefined));
-      //   after(() => productsModel.deleteById.restore());
+        before(() => sinon.stub(productsModel, 'getProductById').returns([]));
+
+        after(() => productsModel.getProductById.restore());
         
-      //   it('deve retornar undefined', async ()=> {
-      //     const [response] = await productsService.deleteById(id);
-      //     console.log(response);
-      //     expect(typeof response).to.be.an("undefined");
-      //   });
-      // });
+        it('deve retornar undefined', async ()=> {
+          const response = await productsService.deleteById(id);
+          expect(response).to.be.null;
+        });
+      });
 
       // describe('quando existir o produto:', () => {
         // const id = 3;
@@ -211,6 +208,11 @@ describe('CAMADA DE SERVICES', () => {
         //   expect(response).to.be.an('object');
         //   expect(response).to.includes.keys('id', 'name', 'quantity');
         // });
+
+
+
+
+        
     });
 
 

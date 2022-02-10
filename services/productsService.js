@@ -12,12 +12,14 @@ const getAllProduts = async () => {
 
 const getProductById = async (id) => {
   const product = await productsModel.getProductById(id);
+
   if (product.length === 0) return null;
   return product;
 };
 
 const updateProductById = async (id, name, quantity) => {
   const newProd = await productsModel.updateProductById(id, name, quantity);
+
   if (newProd.length === 0) return null;
   return newProd;
 };
@@ -26,12 +28,11 @@ const updateProductById = async (id, name, quantity) => {
 const deleteById = async (id) => {
   const [prod] = await productsModel.getProductById(id);
 
-  // console.log(prod);
+  console.log(prod, 'retorno byId');
 
   if (prod === undefined) return null;
 
-  const del = await productsModel.deleteById(id);
-  console.log(del);
+  await productsModel.deleteById(id);
 
   return {
     id: prod.id,
