@@ -220,7 +220,7 @@ describe('CAMADA DE MODEL', () => {
         });
       });    
     });
-
+    // ---------------------------------------------------
     describe('getSaleById:', () => {
     
       describe('Ao buscar por uma determinada venda', () => {
@@ -238,7 +238,7 @@ describe('CAMADA DE MODEL', () => {
       });
 
       describe('se não existir uma venda', () => {
-        const id = 4;
+        const id = 9999;
         before(() => sinon.stub(connection, 'query').resolves([[]]));
 
         after(() => connection.query.restore());
@@ -263,6 +263,94 @@ describe('CAMADA DE MODEL', () => {
           const result = await salesModel.getSaleById(id);
           expect(result).to.be.a('array');
           expect(result).to.be.not.empty;
+        });
+      });
+
+    });
+    // ---------------------------------------------------
+    describe('updateSaleById:', () => {
+    
+      describe('Ao atualizar uma venda que não existe', () => {
+        const id = 9999;
+
+        const body = [ { "product_id": 1, "quantity": 6 } ];
+
+        before(() => sinon.stub(connection, 'query').resolves([[]]));
+
+        after(() => connection.query.restore());
+
+        it ('deve retornar um array vazio', async () => {
+          const result = await salesModel.updateSaleById(id, body);
+          expect(result).to.be.equal(null);
+        });
+      });
+
+      describe('Ao atualizar uma venda existente', () => {
+        const id = 2;
+        const body = [ { "product_id": 1, "quantity": 6 } ];
+        const response = { saleId: 2, itemUpdated: body }
+
+        before(() => sinon.stub(connection, 'query').resolves([[response]]));
+
+        after(() => connection.query.restore());
+
+        it ('deve retornar um array vazio', async () => {
+          const result = await salesModel.updateSaleById(id, body);
+
+          expect(result).to.be.a('object');
+          expect(result).to.be.not.empty;
+          expect(result).to.includes.keys('saleId', 'itemUpdated');
+        });
+      });
+    });
+    // ---------------------------------------------------
+
+    describe('deleteSaleById:', () => {
+    
+      describe('Ao deletar uma venda que não existe', () => {
+        const id = 9999;
+
+        before(() => sinon.stub(connection, 'query').resolves([[]]));
+
+        after(() => connection.query.restore());
+
+        it ('deve retornar null', async () => {
+          const result = await salesModel.deleteSaleById(id);
+          expect(result).to.be.equal(null);
+        });
+      });
+
+      describe('Ao deletar uma venda existente', () => {
+        const id = 2;
+        const responseQuery = [ { date: '2022-02-10T13:28:52.000Z', product_id: 1, quantity: 6 } ];
+        const respExecute = [
+          ResultSetHeader = {
+            fieldCount: 0,
+            affectedRows: 1,
+            insertId: 0,
+            info: '',
+            serverStatus: 2,
+            warningStatus: 0
+          },
+          undefined
+        ];
+
+        before(() => {
+          sinon.stub(connection, 'query').resolves([responseQuery]);
+          sinon.stub(connection, 'execute').resolves([respExecute]);
+        });
+
+        after(() => {
+          connection.query.restore();
+          connection.execute.restore();
+        });
+
+        it ('deve retornar um array vazio', async () => {
+          const result = await salesModel.deleteSaleById(id);
+
+          expect(result).to.be.a('array');
+          expect(result).to.be.not.empty;
+          expect(result).to.be.equal(responseQuery);
         });
       });
 

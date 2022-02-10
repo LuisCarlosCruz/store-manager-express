@@ -62,7 +62,6 @@ const updateSaleById = async (req, res, _next) => {
 const deleteSaleById = async (req, res, _next) => {
   try {
     const { id } = req.params;
-  
     const sale = await salesService.deleteSaleById(id);
 
     if (sale === null) return res.status(StatusCodes.NOT_FOUND).json({ message: 'Sale not found' });

@@ -41,7 +41,7 @@ const getSaleById = async (id) => {
     INNER JOIN StoreManager.sales AS S
     ON SP.sale_id = S.id
     WHERE S.id =?;`, [id]);
-    // console.log(result, 'MODEL');
+
     if (!result) return null;
 
     return result;
@@ -81,7 +81,7 @@ const deleteSaleById = async (id) => {
         [item.quantity, item.product_id],
       );
   });
-
+  
   return saleExists;
 };
 
