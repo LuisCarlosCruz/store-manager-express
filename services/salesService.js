@@ -22,6 +22,7 @@ const updateSaleById = async (id, body) => {
 
 const deleteSaleById = async (id) => {
   const sale = await salesModel.deleteSaleById(id);
+  console.log(sale, 'deleteSaleById');
   return sale;
 };
 
