@@ -2,6 +2,7 @@ const sinon = require('sinon');
 const { expect } = require('chai');
 const connection = require('../../models/connection');
 const productsModel = require('../../models/productsModel');
+const salesModel = require('../../models/salesModel');
 
 
 describe('CAMADA DE MODEL', () => {
@@ -143,5 +144,130 @@ describe('CAMADA DE MODEL', () => {
       });
     });
   });
-});
 
+  // ---------------------------------------------------------
+  describe('-SALES', () => {
+
+    describe('getAllSales:', () => {
+  
+      describe('Ao buscar todas as vendas', () => {
+        const allSale = [
+          {
+            saleId: 1,
+            date: '2022-02-09T22:13:48.000Z',
+            product_id: 1,
+            quantity: 2
+          },
+          {
+            saleId: 2,
+            date: '2022-02-09T22:13:54.000Z',
+            product_id: 2,
+            quantity: 2
+          }
+        ];
+
+        before(() => sinon.stub(connection, 'query').resolves([[allSale]]));
+
+        after(() => connection.query.restore());
+
+        it ('deve retornar um array', async () => {
+          const result = await salesModel.getAllSales()
+          expect(result).to.be.an('array');
+        });
+      });
+
+      describe('se não existir nenhuma venda', () => {
+        before(() => sinon.stub(connection, 'query').resolves([[]]));
+
+        after(() => connection.query.restore());
+
+        it ('deve retornar um array vazio', async () => {
+          const result = await salesModel.getAllSales();
+          expect(result).to.be.a('array');
+          expect(result).to.be.empty;
+        });
+      });
+
+      describe('se existir uma ou mais vendas', () => {
+        const allSale = [
+          {
+            saleId: 1,
+            date: '2022-02-09T22:13:48.000Z',
+            product_id: 1,
+            quantity: 2
+          },
+          {
+            saleId: 2,
+            date: '2022-02-09T22:13:54.000Z',
+            product_id: 2,
+            quantity: 2
+          }
+        ];
+
+        before(() => sinon.stub(connection, 'query').resolves([allSale]));
+
+        after(() => connection.query.restore());
+
+        it ('deve retornar um array', async () => {
+          const result = await salesModel.getAllSales();
+          expect(result).to.be.a('array');
+          expect(result).to.be.not.empty;
+
+          result.forEach((product) => {
+            expect(product).to.be.a('object');
+            expect(product).to.includes.keys('saleId', 'date', 'product_id', 'quantity');
+          });
+        });
+      });    
+    });
+
+    describe('getSaleById:', () => {
+    
+      describe('Ao buscar por uma determinada venda', () => {
+        const id = 1;
+        const allSale = [ { date: '2022-02-09T22:33:47.000Z', product_id: 2, quantity: 2 } ];
+
+        before(() => sinon.stub(connection, 'query').resolves([[allSale]]));
+
+        after(() => connection.query.restore());
+
+        it ('deve retornar um array', async () => {
+          const result = await salesModel.getSaleById(id);
+          expect(result).to.be.an('array');
+        });
+      });
+
+      describe('se não existir uma venda', () => {
+        const id = 4;
+        before(() => sinon.stub(connection, 'query').resolves([[]]));
+
+        after(() => connection.query.restore());
+
+        it ('deve retornar um array vazio', async () => {
+          const result = await salesModel.getSaleById(id);
+          expect(result).to.be.a('array');
+          expect(result).to.be.empty;
+        });
+      });
+
+      describe('se existir uma venda', () => {
+        const id = 1;
+
+        const allSale = [ { date: '2022-02-09T22:33:47.000Z', product_id: 2, quantity: 2 } ];
+
+        before(() => sinon.stub(connection, 'query').resolves([allSale]));
+
+        after(() => connection.query.restore());
+
+        it ('deve retornar um array', async () => {
+          const result = await salesModel.getSaleById(id);
+          expect(result).to.be.a('array');
+          expect(result).to.be.not.empty;
+        });
+      });
+
+    });
+
+  });
+
+});
