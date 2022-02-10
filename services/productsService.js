@@ -26,9 +26,12 @@ const updateProductById = async (id, name, quantity) => {
 const deleteById = async (id) => {
   const [prod] = await productsModel.getProductById(id);
 
+  // console.log(prod);
+
   if (prod === undefined) return null;
 
-  await productsModel.deleteById(id);
+  const del = await productsModel.deleteById(id);
+  console.log(del);
 
   return {
     id: prod.id,
