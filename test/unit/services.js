@@ -226,9 +226,16 @@ describe('CAMADA DE SERVICES', () => {
       const bodySale = [ { product_id: 1, quantity: 2 } ];
       const resp = { id: 2, itemsSold: [ { product_id: 1, quantity: 2 } ] };
 
-      before(() => sinon.stub(salesModel, 'createSale').returns(resp));
-      after(() => salesModel.createSale.restore());
-
+      before(() => {
+        sinon.stub(salesModel, 'createSale').returns(resp);
+        sinon.stub(productsModel, 'getProductById').returns([{}]);
+      });
+      
+      after(() => {
+        salesModel.createSale.restore();
+        productsModel.getProductById.restore();
+      });
+      
       it('deve retornar um obj:', async ()=> {
         const response = await salesService.createSale(bodySale);
         expect(response).to.be.an('object');
