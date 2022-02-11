@@ -1,6 +1,12 @@
 const salesModel = require('../models/salesModel');
+const productsModel = require('../models/productsModel');
 
 const createSale = async (bodySale) => {
+  const [product] = bodySale;
+  const [productEst] = await productsModel.getProductById(product.product_id);
+
+  if (productEst.quantity - product.quantity < 0) return 'empty';
+
   const sale = await salesModel.createSale(bodySale);
   return sale;
 };
@@ -22,7 +28,6 @@ const updateSaleById = async (id, body) => {
 
 const deleteSaleById = async (id) => {
   const sale = await salesModel.deleteSaleById(id);
-  console.log(sale, 'deleteSaleById');
   return sale;
 };
 

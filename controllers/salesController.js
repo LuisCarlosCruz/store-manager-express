@@ -5,6 +5,13 @@ const createSale = async (req, res, _next) => {
     try {
     const { body: bodySale } = req;
     const sale = await salesService.createSale(bodySale);
+    // console.log(sale, 'controller');
+    if (sale === 'empty') {
+      return res
+        .status(StatusCodes.UNPROCESSABLE_ENTITY)
+        .json({ message: 'Such amount is not permitted to sell' }); 
+    }
+
     if (sale === null) return res.status(StatusCodes.NOT_FOUND).json({ message: 'Erro' });
     return res.status(StatusCodes.CREATED).json(sale);
   } catch (err) {

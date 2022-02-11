@@ -7,7 +7,6 @@ const createSale = async (bodySale) => {
     if (id === undefined) return null;
     return id.id;
   }));
-
   if (existProd.includes(null)) return null;
 
   const { product_id: productID, quantity } = bodySale[0];

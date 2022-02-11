@@ -77,7 +77,7 @@ describe('CAMADA DE SERVICES', () => {
 
     });
 
-    // // ----------------------------------------------------------------
+    // ----------------------------------------------------------------
 
     describe('getProductById:', () => {
 
@@ -183,39 +183,40 @@ describe('CAMADA DE SERVICES', () => {
         });
       });
 
-      // describe('quando existir o produto:', () => {
-        // const id = 3;
-        // const resp = { id: id, name: 'celular', quantity: 3 };
+      describe('quando existir o produto:', () => {
+        const id = 3;
+        const resp = { id, name: 'celular', quantity: 3 };
+        const respDel = {
+          fieldCount: 0,
+          affectedRows: 1,
+          insertId: 0,
+          info: '',
+          serverStatus: 2,
+          warningStatus: 0
+        };
   
-        // before(() => {
-        //   sinon.stub(productsModel, 'getProductById').returns(resp);
-        //   sinon.stub(productsModel, 'deleteById').returns({});
-        // });
+        before(() => {
+          sinon.stub(productsModel, 'getProductById').returns([resp]);
+          sinon.stub(productsModel, 'deleteById').returns(respDel);
+        });
 
-        // after(() => {
-        //   productsModel.getProductById.restore();
-        //   productsModel.deleteById.restore();
-
-        // });
+        after(() => {
+          productsModel.getProductById.restore();
+          productsModel.deleteById.restore();
+        });
         
-        // it('deve retornar um objeto:', async ()=> {
-        //   const response = await productsService.deleteById(id);
-        //   expect(response).to.be.an('object');
-        // });
+        it('deve retornar um objeto:', async ()=> {
+          const response = await productsService.deleteById(id);
+          expect(response).to.be.a('object');
+        });
 
-        // it('deve retornar um obj com as chaves "id", "name", "quantity":', async ()=> {
-        //   const response = await productsService.deleteById(id);
-        //   expect(response).to.be.an('object');
-        //   expect(response).to.includes.keys('id', 'name', 'quantity');
-        // });
-
-
-
-
-        
+        it('deve retornar um obj com as chaves "id", "name", "quantity":', async ()=> {
+          const response = await productsService.deleteById(id);
+          expect(response).to.be.an('object');
+          expect(response).to.includes.keys('id', 'name', 'quantity');
+        });
+      });
     });
-
-
   });
 
 
