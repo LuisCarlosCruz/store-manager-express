@@ -13,7 +13,7 @@ describe('CAMADA DE CONTROLLER', () => {
 
     describe('createProduts:', () => {
 
-      describe('ao criar produto com sucesso', () => {
+      describe('ao criar produto com sucesso', () => { 
         const response = {};
         const request = {};
         const resp = { id: 1, name: 'celular', quantity: 5 };
