@@ -5,15 +5,6 @@
 ### Sumário
 
 - [Nesse projeto](#nesse-projeto)
-- [Desenvolvimento](#desenvolvimento)
-- [Como você pode melhorar esse projeto](#como-você-pode-melhorar-esse-projeto)
-- [Sobre a API](#sobre-a-api)
-  - [Todos os seus endpoints são no padrão REST](#todos-os-seus-endpoints-são-no-padrão-rest)
-  - [Cada camada da API esta em sua respectiva pasta](#cada-camada-da-api-esta-em-sua-respectiva-pasta)
-  - [Sobre os arquivos de teste](#sobre-os-arquivos-de-teste)
-- [Conexão com o Banco](#conexão-com-o-banco)
-- [Tabelas](#tabelas)
-- [Conexão com o Banco](#conexão-com-o-banco)
 - [O que foi desenvolvido](#o-que-foi-desenvolvido)
   - [Código com Linter](#linter)
   - [1 - Um endpoint para o cadastro de produtos](#)
@@ -29,6 +20,16 @@
   - [11 - Valide a quantidade de produtos](#)
   - [12 - Escreva testes para cobrir 50% das camadas da sua aplicação](#)
   - [13 - Escreva testes para cobrir 60% das camadas da sua aplicação](#)
+- [Desenvolvimento](#desenvolvimento)
+- [Como você pode melhorar esse projeto](#como-você-pode-melhorar-esse-projeto)
+- [Sobre a API](#sobre-a-api)
+  - [Todos os seus endpoints são no padrão REST](#todos-os-seus-endpoints-são-no-padrão-rest)
+  - [Cada camada da API esta em sua respectiva pasta](#cada-camada-da-api-esta-em-sua-respectiva-pasta)
+  - [Sobre os arquivos de teste](#sobre-os-arquivos-de-teste)
+- [Conexão com o Banco](#conexão-com-o-banco)
+- [Tabelas](#tabelas)
+- [Testes](#testes)
+
 
 ---
 
