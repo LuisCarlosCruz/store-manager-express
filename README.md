@@ -40,7 +40,7 @@
 - É possível Conectar a aplicação com diferentes bancos de dados;
 - Estruturação da API em camadas;
 - Comadas que contam com responsabilidades específicas para cada parte;
-- Manutenibilidade e reusabilidade do ódigo;
+- Manutenibilidade e reusabilidade do código;
 - Aplicação dos padrões REST;
 - Assinaturas para APIs intuitivas e facilmente entendíveis.
 
