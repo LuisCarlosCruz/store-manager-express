@@ -138,11 +138,11 @@ Foi utilizado o banco MySQL para a gestão de dados. Além disso, a API deve ser
 
 ### Cada camada da API esta em sua respectiva pasta
 
-- Models devem estar na pasta `models`, **na raiz do projeto**
+- Models estão na pasta `models`, **na raiz do projeto**
 
-- Services devem estar na pasta `services`, **na raiz do projeto**
+- Services estão na pasta `services`, **na raiz do projeto**
 
-- Controllers devem estar na pasta `controllers`, **na raiz do projeto**
+- Controllers estão na pasta `controllers`, **na raiz do projeto**
 
 ### Sobre os arquivos de teste
 
